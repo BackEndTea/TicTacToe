@@ -1,7 +1,8 @@
 import sys, os, random, getopt
 
+player2 = False
 
-def makeMove(move):
+def makeMove(move,i):
     if move > 9 or move < 1:
         print "Please choose a valid number"
         sys.exit()
@@ -9,12 +10,15 @@ def makeMove(move):
     if board[move] is not " ":
         print "place already taken"
         sys.exit()
-    board[move] = "X"
-    pcRoll = random.randrange(0,8)
-    while " " in board and board[pcRoll] is not " ":
-        pcRoll =  random.randrange(0,8)
+    board[move] = i
+    
+    if not player2:
+        pcRoll = random.randrange(0,8)
+        while " " in board and board[pcRoll] is not " ":
+            pcRoll =  random.randrange(0,8)
 
-    board[pcRoll] = "O"
+        board[pcRoll] = "O"
+
     print board[0] +  "|" + board[1] + "|" + board[2]
     print board[3] +  "|" + board[4] + "|" + board[5]
     print board[6] +  "|" + board[7] + "|" + board[8]
@@ -23,10 +27,16 @@ def makeMove(move):
     checkWin(board,"O")
 
 def checkWin(b,i):
-    if i is "X":
-        text = "You won!"
+    if player2:
+        if i is "X":
+            text = "Player 1 won!"
+        else:
+            text = "Player 2 won!"
     else:
-        text = "You lost!"
+        if i is "X":
+            text = "You won!"
+        else:
+            text = "You lost!"
     if b[0] is  b[1] is b[2] is i:
         print text
         sys.exit()
@@ -69,12 +79,22 @@ for opt, arg in opts:
         print"start with -2 for 2 players"
         sys.exit()
     if opt in "-2":
-        print"2 player modus is not yet implemented"
-        sys.exit()
+        player2 = True
 
 board = [" "," "," "," "," "," "," "," "," "]
 userMove = ''
+player1Move = True
 while userMove is not 'quit':
-    userMove = int(raw_input("Move:"))
-    makeMove(userMove)
+    if player2:
+        if player1Move:
+            userMove = int(raw_input("P1Move:"))
+            player1Move = False
+            makeMove(userMove,"X")
+        else:
+            userMove = int(raw_input("P2Move:"))
+            player1Move = True
+            makeMove(userMove,"O")
+    else:
+        userMove = int(raw_input("Move:"))
+        makeMove(userMove,"X")
 
