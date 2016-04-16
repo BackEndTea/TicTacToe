@@ -1,17 +1,15 @@
 import sys, os, random, getopt
 
 player2 = False
+player1Move = True
 
 def makeMove(move,i):
     if move > 9 or move < 1:
-        print "Please choose a valid number"
-        sys.exit()
+        raise Exception("Only accepting numbers between 1 and 9")
     move = move - 1
     if board[move] is not " ":
-        print "place already taken"
-        sys.exit()
+        raise Exception("Spot already taken")
     board[move] = i
-    
     if not player2:
         pcRoll = random.randrange(0,8)
         while " " in board and board[pcRoll] is not " ":
@@ -65,6 +63,18 @@ def checkWin(b,i):
         print "Its a tie!"
         sys.exit()
 
+def askMove(user,token):
+    try:
+        global player1Move
+        userMove= int(raw_input(user))
+        makeMove(userMove,token)
+        player1Move = not player1Move
+    except ValueError:
+        print "Please enter a number"
+        return
+    except Exception:
+        print"Only accepting numbers between 1 and 9, on spaces that aren't filled"
+
 try:
     opts, args = getopt.getopt(sys.argv[1:],"h2",["help",""])
 except getopt.GetoptError:
@@ -83,18 +93,12 @@ for opt, arg in opts:
 
 board = [" "," "," "," "," "," "," "," "," "]
 userMove = ''
-player1Move = True
-while userMove is not 'quit':
+
+while True:
     if player2:
         if player1Move:
-            userMove = int(raw_input("P1Move:"))
-            player1Move = False
-            makeMove(userMove,"X")
+            askMove("P1Move:","X")
         else:
-            userMove = int(raw_input("P2Move:"))
-            player1Move = True
-            makeMove(userMove,"O")
+            askMove("P2Move:", "O")
     else:
-        userMove = int(raw_input("Move:"))
-        makeMove(userMove,"X")
-
+        askMove("Move:","X")
