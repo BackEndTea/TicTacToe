@@ -72,8 +72,8 @@ def askMove(user,token):
     except ValueError:
         print "Please enter a number"
         return
-    except Exception:
-        print"Only accepting numbers between 1 and 9, on spaces that aren't filled"
+    except Exception as e:
+        print e
 
 try:
     opts, args = getopt.getopt(sys.argv[1:],"h2",["help",""])
