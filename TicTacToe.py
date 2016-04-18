@@ -72,9 +72,11 @@ def askMove(user,token):
         player1Move = not player1Move
     except ValueError:
         print "Please enter a number"
+        printBoard()
         return
     except Exception as e:
         print e
+        printBoard()
 
 try:
     opts, args = getopt.getopt(sys.argv[1:],"h2",["help",""])
