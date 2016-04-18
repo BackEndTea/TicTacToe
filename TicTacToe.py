@@ -21,9 +21,9 @@ def makeMove(move,i):
     checkWin(board,"O")
 
 def printBoard():
-    print board[0] + "|" + board[1] + "|" + board[2]  
+    print board[6] + "|" + board[7] + "|" + board[8]  
     print board[3] + "|" + board[4] + "|" + board[5]
-    print board[6] + "|" + board[7] + "|" + board[8]
+    print board[0] + "|" + board[1] + "|" + board[2]
 
 def checkWin(b,i):
     if player2:
@@ -85,9 +85,9 @@ except getopt.GetoptError:
 
 for opt, arg in opts:
     if opt in "-h":
-        print"1|2|3"
-        print"4|5|6"
         print"7|8|9"
+        print"4|5|6"
+        print"1|2|3"
         print"start with -2 for 2 players"
         sys.exit()
     if opt in "-2":
