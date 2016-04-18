@@ -16,13 +16,14 @@ def makeMove(move,i):
             pcRoll =  random.randrange(0,8)
 
         board[pcRoll] = "O"
-
-    print board[0] +  "|" + board[1] + "|" + board[2]
-    print board[3] +  "|" + board[4] + "|" + board[5]
-    print board[6] +  "|" + board[7] + "|" + board[8]
-
+    printBoard()
     checkWin(board,"X")
     checkWin(board,"O")
+
+def printBoard():
+    print board[0] + "|" + board[1] + "|" + board[2]  
+    print board[3] + "|" + board[4] + "|" + board[5]
+    print board[6] + "|" + board[7] + "|" + board[8]
 
 def checkWin(b,i):
     if player2:
