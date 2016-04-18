@@ -73,7 +73,6 @@ def askMove(user,token):
     except ValueError:
         print "Please enter a number"
         printBoard()
-        return
     except Exception as e:
         print e
         printBoard()
