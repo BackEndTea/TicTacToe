@@ -41,7 +41,7 @@ def checkWin(b,i):
         sys.exit()
     if b[3] is  b[4] is b[5] is i:
         print text
-        sys.ext()
+        sys.exit()
     if b[6] is  b[7] is b[8] is i:
         print text
         sys.exit()
